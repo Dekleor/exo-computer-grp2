@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ComputersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,22 @@ class Computers
      * @ORM\Column(type="string", length=255)
      */
     private $type;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Devices::class, inversedBy="computers")
+     */
+    private $Devices;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Component::class, inversedBy="computers")
+     */
+    private $Component;
+
+    public function __construct()
+    {
+        $this->Devices = new ArrayCollection();
+        $this->Component = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +121,54 @@ class Computers
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Devices[]
+     */
+    public function getDevices(): Collection
+    {
+        return $this->Devices;
+    }
+
+    public function addDevice(Devices $device): self
+    {
+        if (!$this->Devices->contains($device)) {
+            $this->Devices[] = $device;
+        }
+
+        return $this;
+    }
+
+    public function removeDevice(Devices $device): self
+    {
+        $this->Devices->removeElement($device);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Component[]
+     */
+    public function getComponent(): Collection
+    {
+        return $this->Component;
+    }
+
+    public function addComponent(Component $component): self
+    {
+        if (!$this->Component->contains($component)) {
+            $this->Component[] = $component;
+        }
+
+        return $this;
+    }
+
+    public function removeComponent(Component $component): self
+    {
+        $this->Component->removeElement($component);
 
         return $this;
     }

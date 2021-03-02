@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DevicesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class Devices
      * @ORM\Column(type="string", length=255)
      */
     private $type;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Computers::class, mappedBy="Devices")
+     */
+    private $Computers;
+
+    public function __construct()
+    {
+        $this->Computers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +132,33 @@ class Devices
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Computers[]
+     */
+    public function getComputers(): Collection
+    {
+        return $this->Computers;
+    }
+
+    public function addComputers(Computers $computers): self
+    {
+        if (!$this->Computers->contains($computers)) {
+            $this->Computers[] = $computers;
+            $computers->addDevice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComputers(Computers $computers): self
+    {
+        if ($this->Computers->removeElement($computers)) {
+            $computers->removeDevice($this);
+        }
 
         return $this;
     }
