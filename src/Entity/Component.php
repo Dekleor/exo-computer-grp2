@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ComponentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class Component
      * @ORM\Column(type="datetime")
      */
     private $uptated_at;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Computers::class, mappedBy="Component")
+     */
+    private $computers;
+
+    public function __construct()
+    {
+        $this->computers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +132,33 @@ class Component
     public function setUptatedAt(\DateTimeInterface $uptated_at): self
     {
         $this->uptated_at = $uptated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Computers[]
+     */
+    public function getComputers(): Collection
+    {
+        return $this->computers;
+    }
+
+    public function addComputer(Computers $computer): self
+    {
+        if (!$this->computers->contains($computer)) {
+            $this->computers[] = $computer;
+            $computer->addComponent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComputer(Computers $computer): self
+    {
+        if ($this->computers->removeElement($computer)) {
+            $computer->removeComponent($this);
+        }
 
         return $this;
     }
