@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Computers;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +17,9 @@ class ComputerFormType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('type', TextType::class)
+            ->add('type', ChoiceType::class, [
+                'choices' => array_flip(Computers::AVAILABLE_TYPES),
+            ])
         ;
     }
 
