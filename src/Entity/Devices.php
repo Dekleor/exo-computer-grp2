@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Devices
 {
+    const AVAILABLE_TYPES = [
+        'keyboard' => 'Clavier',
+        'screen' => 'Écran',
+        'speakers' => 'Enceintes',
+        'mouse' => 'Souris',
+        'webcam' => 'Webcam',
+    ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
