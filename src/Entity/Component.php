@@ -10,6 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Component
 {
+    const AVAILABLE_TYPES = [
+        'Cpu' => 'Processeur',
+        'Ram' => 'Ram',
+        'Processor' => 'Processeur',
+        'Mother Board' => 'Carte Mère',
+        'Hard drive' => 'Disque dur',
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
