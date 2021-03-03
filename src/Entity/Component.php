@@ -6,6 +6,7 @@ use App\Repository\ComponentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ComponentRepository::class)
@@ -28,12 +29,17 @@ class Component
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
+     * @ORM\Column(type="string", length=128)
+     * // Une assertion pour vérifier que notre name n'est pas vide
+     * @Assert\NotBlank()
+     * // Une autre pour vérifier qu'il contienne au moins 4 caractères
+     * @Assert\Length(min=4)
+       */
     private $name;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\GreaterThan(0)
      */
     private $price;
 
@@ -51,6 +57,11 @@ class Component
      * @ORM\Column(type="string", length=255)
      */
     private $brand;
+
+    /**
+     * @ORM\Column(type="string", length=400)
+     */
+    private $description;
 
     /**
      * @ORM\Column(type="datetime")
@@ -145,6 +156,25 @@ class Component
     }
 
     /**
+     * Get the value of description
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of description
+     * @return  self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+  
+        return $this;
+     }
+  
+    /**
      * @return Collection|Computers[]
      */
     public function getComputers(): Collection
@@ -167,7 +197,7 @@ class Component
         if ($this->computers->removeElement($computer)) {
             $computer->removeComponent($this);
         }
-
+      
         return $this;
     }
 }
