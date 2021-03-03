@@ -14,3 +14,8 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+.idea
+.idea/exo-computer-grp2.iml
+.idea/php.xml
+.idea/exo-computer-grp2.iml
+.idea/exo-computer-grp2.iml
