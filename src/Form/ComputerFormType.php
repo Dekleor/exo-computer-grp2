@@ -19,8 +19,7 @@ class ComputerFormType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('type', ChoiceType::class, [
                 'choices' => array_flip(Computers::AVAILABLE_TYPES),
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

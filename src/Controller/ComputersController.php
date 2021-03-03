@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ComputerFormType;
+use Monolog\DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,10 +24,14 @@ class ComputersController extends AbstractController
     {
         $computer = new Computers();
 
-        $form = $this->createForm(ComputerFormType::class, $computer);
+        $form = $this->createForm(ComputerFormType::class, $computer, [
+            'method' => 'POST',
+//            'action' => $this->generateUrl('computers')
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $computer->setUpdatedAt(new DateTime());
             $entityManager->persist($computer);
             $entityManager->flush();
 
