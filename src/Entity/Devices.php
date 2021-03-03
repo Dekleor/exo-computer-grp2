@@ -6,6 +6,7 @@ use App\Repository\DevicesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DevicesRepository::class)
@@ -28,6 +29,8 @@ class Devices
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=4)
      */
     private $name;
 
@@ -43,16 +46,19 @@ class Devices
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     private $updated_at;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(callback="getTypes")
      */
     private $type;
 
@@ -168,5 +174,9 @@ class Devices
         }
 
         return $this;
+    }
+    public function getTypes(): array
+    {
+        return self::AVAILABLE_TYPES;
     }
 }

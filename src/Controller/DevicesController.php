@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Devices;
 use App\Form\DeviceFormType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +24,13 @@ class DevicesController extends AbstractController
     {
         $device = new Devices();
 
-        $form = $this->createForm(DeviceFormType::class, $device);
+        $form = $this->createForm(DeviceFormType::class, $device, [
+            'method' => 'POST',
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $device->setUpdatedAt(new DateTime());
             $entityManager->persist($device);
             $entityManager->flush();
 

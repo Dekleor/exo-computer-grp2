@@ -5,4 +5,17 @@
 {% endblock %}
 
 {% block body %}
-	{{  form(form)  }}{% endblock %}
+	{{ form_start(form) }}
+	{{ form_row(form.name) }}
+
+	{{ form_row(form.type, {
+            'attr': {
+                'data-select2': true,
+                'class': 'form-control select2',
+            }
+        }) }}
+
+	{{ form_rest(form) }}
+	<button type="submit" class="btn btn-primary">Valider</button>
+	{{ form_end(form) }}
+{% endblock %}
