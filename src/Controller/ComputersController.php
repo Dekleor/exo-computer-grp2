@@ -24,14 +24,16 @@ class ComputersController extends AbstractController
     {
         $computer = new Computers();
 
+
         $form = $this->createForm(ComputerFormType::class, $computer, [
             'method' => 'POST',
-//            'action' => $this->generateUrl('computers')
+          'action' => $this->generateUrl('computers')
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $computer->setUpdatedAt(new DateTime());
+
             $entityManager->persist($computer);
             $entityManager->flush();
 

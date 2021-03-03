@@ -20,12 +20,14 @@ class ComputerFormType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices' => array_flip(Computers::AVAILABLE_TYPES),
             ]);
-    }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Computers::class,
-        ]);
+
+        public
+        function configureOptions(OptionsResolver $resolver)
+        {
+            $resolver->setDefaults([
+                'data_class' => Computers::class,
+            ]);
+        }
     }
 }
