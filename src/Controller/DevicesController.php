@@ -30,13 +30,13 @@ class DevicesController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) { // Si le formulaire est soumis + valide alors il l'enregistre
             if (empty($device->setCreatedAt)) {
                 $device->setCreatedAt(new DateTime()); // sans ça, bah ça marche pas pourquoi ?
             }
             $device->setUpdatedAt(new DateTime()); // Ticket Ajouter/Modifier-> " mettre une valeur à updated_at"
-            $entityManager->persist($device);
-            $entityManager->flush();
+            $entityManager->persist($device); //utiliser que pour un nouvel objet pas de MAJ et sert à enregistrer
+            $entityManager->flush(); // met à jour, si elle n'est pas appeler pas de modif dans la BdD
 
             return $this->redirectToRoute('devices_index');
         }
