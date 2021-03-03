@@ -21,7 +21,8 @@ class DeviceFormType extends AbstractType
             ])
             ->add('brand', TextType::class)
             ->add('type', ChoiceType::class, [
-                'choices' => array_flip(Devices::AVAILABLE_TYPES),
+                'choices' => Devices::AVAILABLE_TYPES,
+                //'choices' => array_flip(Devices::AVAILABLE_TYPES),
                 'multiple' => false,
                 'expanded' => false,
             ])

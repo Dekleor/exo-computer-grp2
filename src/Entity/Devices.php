@@ -14,11 +14,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Devices
 {
     const AVAILABLE_TYPES = [
-        'keyboard' => 'Clavier',
-        'screen' => 'Écran',
-        'speakers' => 'Enceintes',
-        'mouse' => 'Souris',
-        'webcam' => 'Webcam',
+        'Clavier' => 'keyboard',
+        'Écran' => 'screen',
+        'Enceintes' => 'speakers',
+        'Souris' => 'mouse',
+        'Webcam' => 'webcam',
+        //'keyboard' => 'Clavier',
+        //'screen' => 'Écran',
+        //'speakers' => 'Enceintes',
+        //'mouse' => 'Souris',
+        //'webcam' => 'Webcam',
     ];
     /**
      * @ORM\Id
