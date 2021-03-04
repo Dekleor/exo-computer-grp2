@@ -6,11 +6,16 @@
 
 {% block body %}
 	{{ form_start(form) }}
-	{{ form_row(form.name) }}
+	{{ form_row(form.name, {'label': 'Nom'}) }}
+
 
 	{{ form_row(form.type) }}
+	{{ form_row(form.price, {'label': 'Prix'}) }}
+	{{ form_row(form.brand, {'label': 'Marque'}) }}
 
-	{{ form_rest(form) }}
-	<button type="submit" class="btn btn-primary">Valider</button>
+	{# {{ form_rest(form) }}  Pour avoir le reste du formulaire mais moi je veux changer les noms des labels #}
+	<button type="submit" class="btn btn-warning">Valider</button>
+
+
 	{{ form_end(form) }}
 {% endblock %}

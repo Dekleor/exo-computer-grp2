@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\DevicesRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -74,6 +75,7 @@ class Devices
 
     public function __construct()
     {
+        $this->created_at = new DateTime();
         $this->Computers = new ArrayCollection();
     }
 
@@ -183,5 +185,6 @@ class Devices
     public function getTypes(): array
     {
         return self::AVAILABLE_TYPES;
+        // return array_flip(self::AVAILABLE_TYPES);
     }
 }
